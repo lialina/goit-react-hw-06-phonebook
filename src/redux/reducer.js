@@ -15,7 +15,7 @@ export const initialState = {
 
 export const contactsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case 'addContact':
+    case types.ADD_CONTACT:
       return { ...state, contacts: [...state.contacts, payload] };
     default:
       return state;

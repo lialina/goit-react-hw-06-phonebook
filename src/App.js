@@ -1,17 +1,16 @@
 import { useState, useEffect, useMemo } from 'react';
 import shortid from 'shortid';
 import './App.css';
-import Container from 'components/Container/Container';
-import ContactForm from 'components/ContactForm/ContactForm';
+import Container from './components/Container/Container';
+import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
-import ContactList from 'components/ContactList/ContactList';
-// import initialContacts from "contacts.json";
+import ContactList from './components/ContactList/ContactList';
 
 import { useDispatch } from 'react-redux';
 import { initialState } from './redux/reducer';
-import { addContact } from './redux/actions';
+// import { addContact } from './redux/actions';
 
-function App() {
+export default function App() {
   const dispatch = useDispatch();
 
   const [contacts, setContacts] = useState(initialState.contacts);
@@ -25,6 +24,7 @@ function App() {
       return;
     }
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -180,5 +180,3 @@ function App() {
 //     );
 //   }
 // }
-
-export default App;

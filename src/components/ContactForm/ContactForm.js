@@ -2,7 +2,7 @@ import { useState } from 'react';
 import shortid from 'shortid';
 import s from './ContactForm.module.css';
 
-function ContactForm({ onSubmit }) {
+export default function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -70,8 +70,6 @@ function ContactForm({ onSubmit }) {
     </form>
   );
 }
-
-export default ContactForm;
 
 // class ContactForm extends Component {
 //   state = {
