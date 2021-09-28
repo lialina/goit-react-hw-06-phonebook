@@ -2,10 +2,10 @@ import { types } from './types';
 
 export const initialState = {
   contacts: [
-    { id: 'id-1', name: 'Aria Stark', number: '459-12-56' },
-    { id: 'id-2', name: 'Paul Atreides', number: '443-89-12' },
-    { id: 'id-3', name: 'Hermione Granger', number: '645-17-79' },
-    { id: 'id-4', name: 'Frodo Baggins', number: '227-91-26' },
+    { name: 'Aria Stark', number: '459-12-56', id: 'id-1' },
+    { name: 'Paul Atreides', number: '443-89-12', id: 'id-2' },
+    { name: 'Hermione Granger', number: '645-17-79', id: 'id-3' },
+    { name: 'Frodo Baggins', number: '227-91-26', id: 'id-4' },
   ],
 };
 

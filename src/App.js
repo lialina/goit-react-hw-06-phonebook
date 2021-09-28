@@ -8,7 +8,7 @@ import ContactList from './components/ContactList/ContactList';
 
 import { useDispatch } from 'react-redux';
 import { initialState } from './redux/reducer';
-// import { addContact } from './redux/actions';
+import { addContact } from './redux/actions';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -32,25 +32,22 @@ export default function App() {
   }, [contacts]);
 
   const handleSubmitWithAddContact = ({ contact }) => {
-    // dispatch({
-    //   type: 'addContact',
-    //   payload: { ...name, ...number, id: shortid.generate() },
-    // });
+    dispatch(addContact({ ...contact, id: shortid.generate() }));
 
-    const newContact = {
-      id: shortid.generate(),
-      name: contact.name,
-      number: contact.number,
-    };
+    // const newContact = {
+    //   id: shortid.generate(),
+    //   name: contact.name,
+    //   number: contact.number,
+    // };
 
-    if (
-      contacts.find(presentContact => presentContact.name === newContact.name)
-    ) {
-      alert(`${newContact.name} is already in contacts.`);
-      return;
-    }
+    // if (
+    //   contacts.find(presentContact => presentContact.name === newContact.name)
+    // ) {
+    //   alert(`${newContact.name} is already in contacts.`);
+    //   return;
+    // }
 
-    setContacts([newContact, ...contacts]);
+    // setContacts([newContact, ...contacts]);
   };
 
   const deleteContact = contactId => {
