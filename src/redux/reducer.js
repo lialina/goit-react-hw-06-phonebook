@@ -34,6 +34,5 @@ const handlers = {
 
 export const phoneBook = (state = initialState, actions) => {
   const handler = handlers[actions.type] || handlers.DEFAULT;
-  console.log(state);
   return handler(state, actions);
 };

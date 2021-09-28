@@ -6,26 +6,28 @@ import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
 
-import { useDispatch } from 'react-redux';
-import { initialState } from './redux/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+// import { initialState } from './redux/reducer';
 import { addContact } from './redux/actions';
 
 export default function App() {
   const dispatch = useDispatch();
+  const { contacts } = useSelector(state => state);
 
-  const [contacts, setContacts] = useState(initialState.contacts);
+  // const [contacts, setContacts] = useState(initialState.contacts);
   const [filter, setFilter] = useState('');
 
-  const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
+  // const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
 
-  useEffect(() => {
-    if (localStorageContacts) {
-      setContacts(localStorageContacts);
-      return;
-    }
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // ----- [Посмотреть и сделать] Как записывать данные из локал сторадж в стор (при использовании редакс стора)?
+  // useEffect(() => {
+  //   if (localStorageContacts) {
+  //     setContacts(localStorageContacts);
+  //     return;
+  //   }
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -50,10 +52,11 @@ export default function App() {
     // setContacts([newContact, ...contacts]);
   };
 
-  const deleteContact = contactId => {
-    const filteredCont = contacts.filter(contact => contact.id !== contactId);
-    setContacts(filteredCont);
-  };
+  // ----- [Сделать] Переписать удаление контакта на диспатч
+  // const deleteContact = contactId => {
+  //   const filteredCont = contacts.filter(contact => contact.id !== contactId);
+  //   setContacts(filteredCont);
+  // };
 
   const changeFilter = event => {
     setFilter(event.currentTarget.value);
@@ -78,7 +81,7 @@ export default function App() {
 
       <ContactList
         contactsData={getVisibleContacts}
-        onDeleteContact={deleteContact}
+        // onDeleteContact={deleteContact} /* Дописать удаление контакта через диспатч*/
       />
     </Container>
   );
