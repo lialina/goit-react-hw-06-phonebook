@@ -52,12 +52,6 @@ export default function App() {
     // setContacts([newContact, ...contacts]);
   };
 
-  // ----- [Сделать] Переписать удаление контакта на диспатч
-  // const deleteContact = contactId => {
-  //   const filteredCont = contacts.filter(contact => contact.id !== contactId);
-  //   setContacts(filteredCont);
-  // };
-
   const changeFilter = event => {
     setFilter(event.currentTarget.value);
   };
@@ -79,10 +73,7 @@ export default function App() {
       <h2>Contacts</h2>
       <Filter value={filter} onChange={changeFilter} />
 
-      <ContactList
-        contactsData={getVisibleContacts}
-        // onDeleteContact={deleteContact} /* Дописать удаление контакта через диспатч*/
-      />
+      <ContactList contactsData={getVisibleContacts} />
     </Container>
   );
 }
