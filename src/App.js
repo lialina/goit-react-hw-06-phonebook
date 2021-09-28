@@ -31,24 +31,26 @@ export default function App() {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const addContact = ({ name, number }) => {
-    dispatch({
-      type: 'addContact',
-      payload: { ...name, ...number, id: shortid.generate() },
-    });
+  const handleSubmitWithAddContact = ({ contact }) => {
+    // dispatch({
+    //   type: 'addContact',
+    //   payload: { ...name, ...number, id: shortid.generate() },
+    // });
 
-    const contact = {
+    const newContact = {
       id: shortid.generate(),
-      name,
-      number,
+      name: contact.name,
+      number: contact.number,
     };
 
-    if (contacts.find(presentContact => presentContact.name === contact.name)) {
-      alert(`${contact.name} is already in contacts.`);
+    if (
+      contacts.find(presentContact => presentContact.name === newContact.name)
+    ) {
+      alert(`${newContact.name} is already in contacts.`);
       return;
     }
 
-    setContacts([contact, ...contacts]);
+    setContacts([newContact, ...contacts]);
   };
 
   const deleteContact = contactId => {
@@ -72,7 +74,7 @@ export default function App() {
   return (
     <Container>
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={addContact} />
+      <ContactForm onSubmit={handleSubmitWithAddContact} />
 
       <h2>Contacts</h2>
       <Filter value={filter} onChange={changeFilter} />

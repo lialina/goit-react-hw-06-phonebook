@@ -7,8 +7,6 @@ export const initialState = {
     { id: 'id-3', name: 'Hermione Granger', number: '645-17-79' },
     { id: 'id-4', name: 'Frodo Baggins', number: '227-91-26' },
   ],
-  // userName: '',
-  // phoneNumber: '',
 };
 
 // !!! Или switch, или handlers
@@ -36,5 +34,6 @@ const handlers = {
 
 export const phoneBook = (state = initialState, actions) => {
   const handler = handlers[actions.type] || handlers.DEFAULT;
+  console.log(state);
   return handler(state, actions);
 };

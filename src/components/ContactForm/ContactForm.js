@@ -3,8 +3,12 @@ import shortid from 'shortid';
 import s from './ContactForm.module.css';
 
 export default function ContactForm({ onSubmit }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [contact, setContact] = useState({
+    name: '',
+    number: '',
+  });
+  // const [name, setName] = useState('');
+  // const [number, setNumber] = useState('');
 
   const nameInputId = shortid.generate();
   const numberInputId = shortid.generate();
@@ -13,26 +17,31 @@ export default function ContactForm({ onSubmit }) {
     event.preventDefault();
 
     onSubmit({
-      name,
-      number,
+      contact,
     });
 
     reset();
   };
 
   const handleChange = event => {
-    if (event.currentTarget.name === 'name') {
-      setName(event.currentTarget.value);
+    const { value, name } = event.target;
+    if (name === 'name' || name === 'number') {
+      setContact({
+        ...contact,
+        [name]: value,
+      });
     }
 
-    if (event.currentTarget.name === 'number') {
-      setNumber(event.currentTarget.value);
-    }
+    // if () {
+    //   setNumber(event.currentTarget.value);
+    // }
   };
 
   const reset = () => {
-    setName('');
-    setNumber('');
+    setContact({
+      name: '',
+      number: '',
+    });
   };
 
   return (
@@ -42,7 +51,7 @@ export default function ContactForm({ onSubmit }) {
         <input
           type="text"
           name="name"
-          value={name}
+          value={contact.name}
           onChange={handleChange}
           id={nameInputId}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -55,7 +64,7 @@ export default function ContactForm({ onSubmit }) {
         <input
           type="tel"
           name="number"
-          value={number}
+          value={contact.number}
           onChange={handleChange}
           id={numberInputId}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
