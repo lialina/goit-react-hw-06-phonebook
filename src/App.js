@@ -5,21 +5,24 @@ import Container from './components/Container/Container';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
-
 import { useDispatch, useSelector } from 'react-redux';
-// import { initialState } from './redux/reducer';
-import { addContact } from './redux/actions';
+
+// With Redux Toolkit
+import { phonebookSlice } from './redux/store';
+
+// Before Redux Toolkit
+// import { addContact } from './redux/actions';
 
 export default function App() {
   const dispatch = useDispatch();
   const { contacts } = useSelector(state => state);
-
-  // const [contacts, setContacts] = useState(initialState.contacts);
   const [filter, setFilter] = useState('');
 
+  // Before Redux and LocalStorage algorithm
+  // const [contacts, setContacts] = useState(initialState.contacts);
   // const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
 
-  // ----- [Посмотреть и сделать] Как записывать данные из локал сторадж в стор (при использовании редакс стора)?
+  // ----- [Study and do] Redux-Persist - to retrieve data from the localStorage and save it to the store
   // useEffect(() => {
   //   if (localStorageContacts) {
   //     setContacts(localStorageContacts);
@@ -34,8 +37,15 @@ export default function App() {
   }, [contacts]);
 
   const handleSubmitWithAddContact = ({ contact }) => {
-    dispatch(addContact({ ...contact, id: shortid.generate() }));
+    // With Redux Toolkit
+    dispatch(
+      phonebookSlice.actions.addContact({ ...contact, id: shortid.generate() }),
+    );
 
+    // Before Redux Toolkit
+    // dispatch(addContact({ ...contact, id: shortid.generate() }));
+
+    // Before Redux
     // const newContact = {
     //   id: shortid.generate(),
     //   name: contact.name,
@@ -77,99 +87,3 @@ export default function App() {
     </Container>
   );
 }
-
-// class App extends Component {
-//   state = {
-//     contacts: initialContacts,
-//     filter: "",
-//   };
-
-//   componentDidMount() {
-//     console.log("App componentDidMount");
-
-//     const parsedContacts = JSON.parse(localStorage.getItem("contacts"));
-
-//     console.log(parsedContacts);
-//     if (parsedContacts) {
-//       this.setState({ contacts: parsedContacts });
-//     }
-//   }
-
-//   componentDidUpdate(prevProps, prevState) {
-//     console.log("Обновилось поле contacts, записываю contacts  в хранилище");
-
-//     if (this.state.contacts !== prevState.contacts) {
-//       console.log("App componentDidUpdate");
-
-//       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
-//     }
-//   }
-
-//   addContact = ({ name, number }) => {
-//     const contact = {
-//       id: shortid.generate(),
-//       name,
-//       number,
-//     };
-
-//     this.checkisContactAlreadyPresent(contact);
-//   };
-
-//   checkisContactAlreadyPresent = (contact) => {
-//     if (
-//       this.state.contacts.find(
-//         (presentContact) => presentContact.name === contact.name
-//       )
-//     ) {
-//       alert(`${contact.name} is already in contacts.`);
-//       return;
-//     }
-
-//     this.setState(({ contacts }) => ({
-//       contacts: [contact, ...contacts],
-//     }));
-//   };
-
-//   deleteContact = (contactId) => {
-//     this.setState((prevState) => ({
-//       contacts: prevState.contacts.filter(
-//         (contact) => contact.id !== contactId
-//       ),
-//     }));
-//   };
-
-//   changeFilter = (event) => {
-//     this.setState({ filter: event.currentTarget.value });
-//   };
-
-//   getVisibleContacts = () => {
-//     const { filter, contacts } = this.state;
-
-//     const normalizedFilter = filter.toLowerCase();
-
-//     return contacts.filter((contact) =>
-//       contact.name.toLowerCase().includes(normalizedFilter)
-//     );
-//   };
-
-//   render() {
-//     const { filter } = this.state;
-
-//     const visibleContacts = this.getVisibleContacts();
-
-//     return (
-//       <Container>
-//         <h1>Phonebook</h1>
-//         <ContactForm onSubmit={this.addContact} />
-
-//         <h2>Contacts</h2>
-//         <Filter value={filter} onChange={this.changeFilter} />
-
-//         <ContactList
-//           contacts={visibleContacts}
-//           onDeleteContact={this.deleteContact}
-//         />
-//       </Container>
-//     );
-//   }
-// }

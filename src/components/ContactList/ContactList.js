@@ -1,15 +1,22 @@
 import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
+import { useDispatch } from 'react-redux';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/actions';
+// With Redux Toolkit
+import { phonebookSlice } from '../../redux/store';
+
+// Before Redux Toolkit
+// import { deleteContact } from '../../redux/actions';
 
 export default function ContactList({ contactsData }) {
-  // const { contacts } = useSelector(state => state);
   const dispatch = useDispatch();
 
   const deleteContactClick = id => {
-    dispatch(deleteContact(id));
+    // With Redux Toolkit
+    dispatch(phonebookSlice.actions.deleteContact(id));
+
+    // Before Redux Toolkit
+    // dispatch(deleteContact(id));
   };
 
   return (
